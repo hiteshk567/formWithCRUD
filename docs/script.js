@@ -14,7 +14,10 @@ firstDiv.appendChild(firstForm);
 let secondDiv = document.createElement("div");
 secondDiv.className = "row";
 let secondTable = document.createElement("table");
-secondTable.id = "dataTable";
+let thead = createThead();
+let tbody = document.createElement("tbody");
+tbody.id = "dataTable";
+secondTable.append(thead, tbody);
 secondDiv.appendChild(secondTable);
 
 container.append(firstDiv, secondDiv);
@@ -139,7 +142,7 @@ form.addEventListener("submit", async event => {
     event.preventDefault();
     let button = document.querySelector("button");
     let formDataArray = event.target;
-    console.log(event);
+    // console.log(event);
     let user = {
         "name": formDataArray[0].value,
         "password": formDataArray[2].value,
@@ -181,7 +184,7 @@ async function getUsers() {
     let response = await fetch("https://5f7b62d400bd7400169097f0.mockapi.io/api/users/");
     let data = await response.json();
     allusers = data;
-    console.log(data);
+    // console.log(data);
     displayData(data);
 }
 
@@ -236,8 +239,8 @@ function getId(id) {
     isEdit = true;
     selectUserId = id;
     let currentUser = allusers[id - 1];
-    console.log(allusers);
-    console.log(currentUser);
+    // console.log(allusers);
+    // console.log(currentUser);
     document.querySelector("#name").value = currentUser.name;
     document.querySelector("#email").value = currentUser.email;
     document.querySelector("#password").value = "";
@@ -296,6 +299,29 @@ function changeCities(cityArray) {
         let option = createOption(cityArray[i]);
         citiesSelect.appendChild(option);
     }
+}
+
+function createThead() {
+    let thead = document.createElement("thead");
+    let th1 = createTh1("Name");
+    let th2 = createTh1("Email");
+    let th3 = createTh1("Country");
+    let th4 = createTh1("State");
+    let th5 = createTh1("City");
+    let th6 = createTh1("Address");
+    let th7 = createTh1("Gender");
+    let th8 = createTh1("Marital Status");
+    let th9 = createTh1("Food");
+    let th10 = createTh1("Color");
+    let th11 = createTh1("Operations");
+    thead.append(th1, th2, th3, th4, th5, th6, th7, th8, th9, th10, th11);
+    return thead;
+}
+
+function createTh1(text) {
+    let th = document.createElement("th");
+    th.innerHTML = text;
+    return th;
 }
 
 function createSubmitButton() {
